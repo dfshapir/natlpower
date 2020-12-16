@@ -1,0 +1,35 @@
+---
+title: "natlpower"
+author: "Daniel Shapiro"
+date: "12/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+correlates <- read_xlsx("raw-data/correlates_of_war.xlsx")
+
+correlates <- correlates %>% 
+  arrange(change) %>%
+  mutate(ToHighlight = ifelse(Country == "Russia", "yes", "no" ))
+```
+
+```{r graph1}
+corr <- ggplot(correlates, aes(x = reorder(Country, change), y = change, fill = ToHighlight)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(x = "Country",
+       y = "Percent Change in National Power",
+       title = "Percent Change in National Power, 2018-2019, Correlates of War Formula") +
+  scale_fill_manual(values = c("yes" = "red", "no" = "gray"), guide = FALSE ) +
+  scale_y_continuous(labels = scales::percent)
+corr
+
+ggsave("corr.png")
+```
+

@@ -90,7 +90,7 @@ gdp <- ggplot(gdpi, aes(x = reorder(Country, change), y = change, fill = ToHighl
   geom_col() +
   theme(axis.text.x = element_text(angle = 90)) +
   labs(x = "Country",
-       y = "Change in GDP Compared to Global Average",
+       y = "Change",
        title = "Percent Change in Gross Domestic Product Index (GDPI), 2018-2019",
        caption = "GDPI measures the ratio of a country's GDP to that of the world as a whole.") +
   scale_fill_manual(values = c("yes" = "red", "no" = "gray"), guide = FALSE ) +
